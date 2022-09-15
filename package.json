@@ -1,0 +1,43 @@
+{
+  "name": "maya-red-email",
+  "version": "1.0.0",
+  "description": "Maya Module for sending Email",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mayahq/mayadev/issues"
+  },
+  "homepage": "#readme",
+  "nodepath": "src/nodes",
+  "nodeRedModuleName": "maya-red-email",
+  "node-red": {
+    "nodes": {
+      "send-email": "src/nodes/sendEmail/sendEmail.node.js",
+      "email-auth": "src/nodes/emailAuth/emailAuth.node.js"
+    }
+  },
+  "mayaDetails": {
+    "name": "maya-red-email",
+    "version": "1.0.0",
+    "description": "Maya Module for sending Email",
+    "author": "",
+    "type": "git",
+    "needsUserProfile": false,
+    "thumbnail": "",
+    "repository": {
+      "type": "git",
+      "url": "git+.git"
+    }
+  },
+  "dependencies": {
+    "@mayahq/module-sdk": "^2.2.3",
+    "@sendgrid/mail": "^7.7.0",
+    "mailgun-js": "^0.22.0"
+  }
+}

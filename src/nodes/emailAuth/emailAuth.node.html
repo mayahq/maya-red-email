@@ -1,0 +1,276 @@
+<script type='text/javascript'>
+    RED.nodes.registerType("email-auth", {
+        category: "config",
+        color: "#8BBDD9",
+        defaults: {
+            name: {
+                value: ""
+            },
+            isProfileConfigNode: {
+                value: false
+            },
+            apiKey: {
+                value: "",
+                required: false
+            },
+            payloadTypeapiKey: {
+                value: "str"
+            },
+            senderEmail: {
+                value: "",
+                required: false
+            },
+            payloadTypesenderEmail: {
+                value: "str"
+            },
+            api_key: {
+                value: "",
+                required: false
+            },
+            payloadTypeapi_key: {
+                value: "str"
+            },
+            domain: {
+                value: "",
+                required: false
+            },
+            payloadTypedomain: {
+                value: "str"
+            },
+            from: {
+                value: "",
+                required: false
+            },
+            payloadTypefrom: {
+                value: "str"
+            },
+            service: {
+                value: "sendgrid"
+            },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "fa-file-code-o.png",
+        label: function() {
+            return this.name || "email-auth"
+        },
+        paletteLabel: "email-auth",
+        exportable: true,
+        oneditprepare: function() {
+            if (this.payloadTypeapiKey === null) {
+                if (this.apiKey === "") {
+                    this.payloadTypeapiKey = "date"
+                } else {
+                    this.payloadTypeapiKey = "str"
+                }
+            } else if (this.payloadTypeapiKey === 'string' || this.payloadTypeapiKey === 'none') {
+                this.payloadTypeapiKey = "str"
+            }
+
+            $("#node-config-input-payloadTypeapiKey").val(this.payloadTypeapiKey)
+            $("#node-config-input-apiKey").typedInput({
+                default: "str",
+                typeField: $("#node-config-input-payloadTypeapiKey"),
+                types: ["msg", "str", "flow", "global"]
+            })
+            $("#node-config-input-apiKey").typedInput("type", this.payloadTypeapiKey)
+
+            if (this.payloadTypesenderEmail === null) {
+                if (this.senderEmail === "") {
+                    this.payloadTypesenderEmail = "date"
+                } else {
+                    this.payloadTypesenderEmail = "str"
+                }
+            } else if (this.payloadTypesenderEmail === 'string' || this.payloadTypesenderEmail === 'none') {
+                this.payloadTypesenderEmail = "str"
+            }
+
+            $("#node-config-input-payloadTypesenderEmail").val(this.payloadTypesenderEmail)
+            $("#node-config-input-senderEmail").typedInput({
+                default: "str",
+                typeField: $("#node-config-input-payloadTypesenderEmail"),
+                types: ["msg", "str", "flow", "global"]
+            })
+            $("#node-config-input-senderEmail").typedInput("type", this.payloadTypesenderEmail)
+
+            if (this.payloadTypeapi_key === null) {
+                if (this.api_key === "") {
+                    this.payloadTypeapi_key = "date"
+                } else {
+                    this.payloadTypeapi_key = "str"
+                }
+            } else if (this.payloadTypeapi_key === 'string' || this.payloadTypeapi_key === 'none') {
+                this.payloadTypeapi_key = "str"
+            }
+
+            $("#node-config-input-payloadTypeapi_key").val(this.payloadTypeapi_key)
+            $("#node-config-input-api_key").typedInput({
+                default: "str",
+                typeField: $("#node-config-input-payloadTypeapi_key"),
+                types: ["msg", "str", "flow", "global"]
+            })
+            $("#node-config-input-api_key").typedInput("type", this.payloadTypeapi_key)
+
+            if (this.payloadTypedomain === null) {
+                if (this.domain === "") {
+                    this.payloadTypedomain = "date"
+                } else {
+                    this.payloadTypedomain = "str"
+                }
+            } else if (this.payloadTypedomain === 'string' || this.payloadTypedomain === 'none') {
+                this.payloadTypedomain = "str"
+            }
+
+            $("#node-config-input-payloadTypedomain").val(this.payloadTypedomain)
+            $("#node-config-input-domain").typedInput({
+                default: "str",
+                typeField: $("#node-config-input-payloadTypedomain"),
+                types: ["msg", "str", "flow", "global"]
+            })
+            $("#node-config-input-domain").typedInput("type", this.payloadTypedomain)
+
+            if (this.payloadTypefrom === null) {
+                if (this.from === "") {
+                    this.payloadTypefrom = "date"
+                } else {
+                    this.payloadTypefrom = "str"
+                }
+            } else if (this.payloadTypefrom === 'string' || this.payloadTypefrom === 'none') {
+                this.payloadTypefrom = "str"
+            }
+
+            $("#node-config-input-payloadTypefrom").val(this.payloadTypefrom)
+            $("#node-config-input-from").typedInput({
+                default: "str",
+                typeField: $("#node-config-input-payloadTypefrom"),
+                types: ["msg", "str", "flow", "global"]
+            })
+            $("#node-config-input-from").typedInput("type", this.payloadTypefrom)
+
+
+            const serviceFieldSetNames = ["sendgrid", "mailgun"]
+            serviceFieldSetNames.forEach((fieldSetName) => {
+                $("#node-config-input-service").append($("<option></option>").attr("value", fieldSetName).text(fieldSetName))
+            })
+
+            $("#node-config-input-service").val(this.service)
+            $("#node-config-input-service").on("change", (e) => {
+                const newFieldSet = e.target.value
+                serviceFieldSetNames.forEach((fieldSetName) => {
+                    if (fieldSetName !== newFieldSet) {
+                        document.querySelector("div#fieldset-" + fieldSetName).style.display = 'none'
+                    }
+                })
+                document.querySelector("div#fieldset-" + newFieldSet).style.display = ''
+                $("#node-input-service").val(e.target.value)
+            })
+
+        },
+        oneditsave: function() {
+
+
+
+
+        },
+        oneditcancel: function() {
+
+
+
+
+        },
+        oneditdelete: function() {
+
+
+
+
+        },
+        oneditresize: function() {
+
+
+
+
+        },
+        onpaletteadd: function() {
+
+
+
+
+        },
+        onpaletteremove: function() {
+
+
+
+
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="email-auth">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" style="width:70%;" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-service">service</label>
+        <select type="text" id="node-config-input-service">
+        </select>
+    </div>
+    <div id="fieldset-sendgrid" style="padding-left: 10px;">
+        <div class="form-row">
+            <label for="node-config-input-apiKey">apiKey</label>
+            <input type="text" id="node-config-input-apiKey"></input>
+            <input type="hidden" id="node-config-input-payloadTypeapiKey">
+        </div>
+        <div class="form-row">
+            <label for="node-config-input-senderEmail">senderEmail</label>
+            <input type="text" id="node-config-input-senderEmail"></input>
+            <input type="hidden" id="node-config-input-payloadTypesenderEmail">
+        </div>
+    </div>
+
+    <div id="fieldset-mailgun" style="padding-left: 10px;">
+        <div class="form-row">
+            <label for="node-config-input-api_key">api_key</label>
+            <input type="text" id="node-config-input-api_key"></input>
+            <input type="hidden" id="node-config-input-payloadTypeapi_key">
+        </div>
+        <div class="form-row">
+            <label for="node-config-input-domain">domain</label>
+            <input type="text" id="node-config-input-domain"></input>
+            <input type="hidden" id="node-config-input-payloadTypedomain">
+        </div>
+        <div class="form-row">
+            <label for="node-config-input-from">from</label>
+            <input type="text" id="node-config-input-from"></input>
+            <input type="hidden" id="node-config-input-payloadTypefrom">
+        </div>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="email-auth">
+    <h2>Description</h2>
+    <p>Query opens tabs based on criteria like URL, muted status</p>
+
+    <h2>Config</h2>
+    <dl class="message-properties">
+
+        <dt>payload<span class="property-type">various</span></dt>
+        <dd>The configured payload of the message.</dd>
+
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd>An optional property</dd>
+
+    </dl>
+
+
+    <h2>Outputs</h2>
+    <dl class="message-properties">
+
+        <dt>payload<span class="property-type">various</span></dt>
+        <dd>The configured payload of the message.</dd>
+
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd>An optional property</dd>
+
+    </dl>
+</script>

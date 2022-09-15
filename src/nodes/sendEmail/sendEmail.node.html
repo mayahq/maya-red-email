@@ -1,0 +1,163 @@
+<script type='text/javascript'>
+    RED.nodes.registerType("send-email", {
+        category: "Maya Red Email",
+        color: "#8BBDD9",
+        defaults: {
+            name: {
+                value: ""
+            },
+            isProfileConfigNode: {
+                value: false
+            },
+            EmailAuth: {
+                value: "",
+                type: "email-auth"
+            },
+            to: {
+                value: "",
+                required: false
+            },
+            payloadTypeto: {
+                value: "str"
+            },
+            subject: {
+                value: "",
+                required: false
+            },
+            payloadTypesubject: {
+                value: "str"
+            },
+            message: {
+                value: "",
+                required: false
+            },
+            payloadTypemessage: {
+                value: "str"
+            },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "fa-file-code-o.png",
+        label: function() {
+            return this.name || "send-email"
+        },
+        paletteLabel: "send-email",
+        exportable: true,
+        oneditprepare: function() {
+            if (this.payloadTypeto === null) {
+                if (this.to === "") {
+                    this.payloadTypeto = "date"
+                } else {
+                    this.payloadTypeto = "str"
+                }
+            } else if (this.payloadTypeto === 'string' || this.payloadTypeto === 'none') {
+                this.payloadTypeto = "str"
+            }
+
+            $("#node-input-payloadTypeto").val(this.payloadTypeto)
+            $("#node-input-to").typedInput({
+                default: "str",
+                typeField: $("#node-input-payloadTypeto"),
+                types: ["str", "msg", "flow", "global"]
+            })
+            $("#node-input-to").typedInput("type", this.payloadTypeto)
+
+            if (this.payloadTypesubject === null) {
+                if (this.subject === "") {
+                    this.payloadTypesubject = "date"
+                } else {
+                    this.payloadTypesubject = "str"
+                }
+            } else if (this.payloadTypesubject === 'string' || this.payloadTypesubject === 'none') {
+                this.payloadTypesubject = "str"
+            }
+
+            $("#node-input-payloadTypesubject").val(this.payloadTypesubject)
+            $("#node-input-subject").typedInput({
+                default: "str",
+                typeField: $("#node-input-payloadTypesubject"),
+                types: ["str", "msg", "flow", "global"]
+            })
+            $("#node-input-subject").typedInput("type", this.payloadTypesubject)
+
+            if (this.payloadTypemessage === null) {
+                if (this.message === "") {
+                    this.payloadTypemessage = "date"
+                } else {
+                    this.payloadTypemessage = "str"
+                }
+            } else if (this.payloadTypemessage === 'string' || this.payloadTypemessage === 'none') {
+                this.payloadTypemessage = "str"
+            }
+
+            $("#node-input-payloadTypemessage").val(this.payloadTypemessage)
+            $("#node-input-message").typedInput({
+                default: "str",
+                typeField: $("#node-input-payloadTypemessage"),
+                types: ["str", "msg", "flow", "global"]
+            })
+            $("#node-input-message").typedInput("type", this.payloadTypemessage)
+
+        },
+        oneditsave: function() {},
+        oneditcancel: function() {},
+        oneditdelete: function() {},
+        oneditresize: function() {},
+        onpaletteadd: function() {},
+        onpaletteremove: function() {}
+    });
+</script>
+
+<script type="text/html" data-template-name="send-email">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" style="width:70%;" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-EmailAuth">EmailAuth</label>
+        <input type="text" id="node-input-EmailAuth"></input>
+    </div>
+    <div class="form-row">
+        <label for="node-input-to">to</label>
+        <input type="text" id="node-input-to"></input>
+        <input type="hidden" id="node-input-payloadTypeto">
+    </div>
+    <div class="form-row">
+        <label for="node-input-subject">subject</label>
+        <input type="text" id="node-input-subject"></input>
+        <input type="hidden" id="node-input-payloadTypesubject">
+    </div>
+    <div class="form-row">
+        <label for="node-input-message">message</label>
+        <input type="text" id="node-input-message"></input>
+        <input type="hidden" id="node-input-payloadTypemessage">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="send-email">
+    <h2>Description</h2>
+    <p>Query opens tabs based on criteria like URL, muted status</p>
+
+    <h2>Config</h2>
+    <dl class="message-properties">
+
+        <dt>payload<span class="property-type">various</span></dt>
+        <dd>The configured payload of the message.</dd>
+
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd>An optional property</dd>
+
+    </dl>
+
+
+    <h2>Outputs</h2>
+    <dl class="message-properties">
+
+        <dt>payload<span class="property-type">various</span></dt>
+        <dd>The configured payload of the message.</dd>
+
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd>An optional property</dd>
+
+    </dl>
+</script>
