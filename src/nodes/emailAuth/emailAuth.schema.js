@@ -23,11 +23,6 @@ class EmailAuth extends Node {
               defaultVal: "",
               allowedTypes: ["msg", "str", "flow", "global"],
             }),
-            senderEmail: new fields.Typed({
-              type: "str",
-              defaultVal: "",
-              allowedTypes: ["msg", "str", "flow", "global"],
-            }),
           },
           mailgun: {
             api_key: new fields.Typed({
@@ -36,11 +31,6 @@ class EmailAuth extends Node {
               allowedTypes: ["msg", "str", "flow", "global"],
             }),
             domain: new fields.Typed({
-              type: "str",
-              defaultVal: "",
-              allowedTypes: ["msg", "str", "flow", "global"],
-            }),
-            from: new fields.Typed({
               type: "str",
               defaultVal: "",
               allowedTypes: ["msg", "str", "flow", "global"],

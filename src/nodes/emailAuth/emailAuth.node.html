@@ -16,13 +16,6 @@
             payloadTypeapiKey: {
                 value: "str"
             },
-            senderEmail: {
-                value: "",
-                required: false
-            },
-            payloadTypesenderEmail: {
-                value: "str"
-            },
             api_key: {
                 value: "",
                 required: false
@@ -35,13 +28,6 @@
                 required: false
             },
             payloadTypedomain: {
-                value: "str"
-            },
-            from: {
-                value: "",
-                required: false
-            },
-            payloadTypefrom: {
                 value: "str"
             },
             service: {
@@ -74,24 +60,6 @@
                 types: ["msg", "str", "flow", "global"]
             })
             $("#node-config-input-apiKey").typedInput("type", this.payloadTypeapiKey)
-
-            if (this.payloadTypesenderEmail === null) {
-                if (this.senderEmail === "") {
-                    this.payloadTypesenderEmail = "date"
-                } else {
-                    this.payloadTypesenderEmail = "str"
-                }
-            } else if (this.payloadTypesenderEmail === 'string' || this.payloadTypesenderEmail === 'none') {
-                this.payloadTypesenderEmail = "str"
-            }
-
-            $("#node-config-input-payloadTypesenderEmail").val(this.payloadTypesenderEmail)
-            $("#node-config-input-senderEmail").typedInput({
-                default: "str",
-                typeField: $("#node-config-input-payloadTypesenderEmail"),
-                types: ["msg", "str", "flow", "global"]
-            })
-            $("#node-config-input-senderEmail").typedInput("type", this.payloadTypesenderEmail)
 
             if (this.payloadTypeapi_key === null) {
                 if (this.api_key === "") {
@@ -129,24 +97,6 @@
             })
             $("#node-config-input-domain").typedInput("type", this.payloadTypedomain)
 
-            if (this.payloadTypefrom === null) {
-                if (this.from === "") {
-                    this.payloadTypefrom = "date"
-                } else {
-                    this.payloadTypefrom = "str"
-                }
-            } else if (this.payloadTypefrom === 'string' || this.payloadTypefrom === 'none') {
-                this.payloadTypefrom = "str"
-            }
-
-            $("#node-config-input-payloadTypefrom").val(this.payloadTypefrom)
-            $("#node-config-input-from").typedInput({
-                default: "str",
-                typeField: $("#node-config-input-payloadTypefrom"),
-                types: ["msg", "str", "flow", "global"]
-            })
-            $("#node-config-input-from").typedInput("type", this.payloadTypefrom)
-
 
             const serviceFieldSetNames = ["sendgrid", "mailgun"]
             serviceFieldSetNames.forEach((fieldSetName) => {
@@ -166,42 +116,12 @@
             })
 
         },
-        oneditsave: function() {
-
-
-
-
-        },
-        oneditcancel: function() {
-
-
-
-
-        },
-        oneditdelete: function() {
-
-
-
-
-        },
-        oneditresize: function() {
-
-
-
-
-        },
-        onpaletteadd: function() {
-
-
-
-
-        },
-        onpaletteremove: function() {
-
-
-
-
-        }
+        oneditsave: function() {},
+        oneditcancel: function() {},
+        oneditdelete: function() {},
+        oneditresize: function() {},
+        onpaletteadd: function() {},
+        onpaletteremove: function() {}
     });
 </script>
 
@@ -221,11 +141,6 @@
             <input type="text" id="node-config-input-apiKey"></input>
             <input type="hidden" id="node-config-input-payloadTypeapiKey">
         </div>
-        <div class="form-row">
-            <label for="node-config-input-senderEmail">senderEmail</label>
-            <input type="text" id="node-config-input-senderEmail"></input>
-            <input type="hidden" id="node-config-input-payloadTypesenderEmail">
-        </div>
     </div>
 
     <div id="fieldset-mailgun" style="padding-left: 10px;">
@@ -238,11 +153,6 @@
             <label for="node-config-input-domain">domain</label>
             <input type="text" id="node-config-input-domain"></input>
             <input type="hidden" id="node-config-input-payloadTypedomain">
-        </div>
-        <div class="form-row">
-            <label for="node-config-input-from">from</label>
-            <input type="text" id="node-config-input-from"></input>
-            <input type="hidden" id="node-config-input-payloadTypefrom">
         </div>
     </div>
 </script>
