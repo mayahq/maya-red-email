@@ -19,7 +19,8 @@
   "node-red": {
     "nodes": {
       "send-email": "src/nodes/sendEmail/sendEmail.node.js",
-      "email-auth": "src/nodes/emailAuth/emailAuth.node.js"
+      "email-auth": "src/nodes/emailAuth/emailAuth.node.js",
+      "bulk-send-email": "src/nodes/bulkSendEmail/bulkSendEmail.node.js"
     }
   },
   "mayaDetails": {
