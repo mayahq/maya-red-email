@@ -23,19 +23,29 @@ class SendEmail extends Node {
         type: "str",
         defaultVal: "",
         allowedTypes: ["msg", "str", "flow", "global"],
+        required: true
       }),
       to: new fields.Typed({
         type: "str",
         defaultVal: "",
         allowedTypes: ["str", "msg", "flow", "global"],
+        required: true
       }),
       subject: new fields.Typed({
         type: "str",
         allowedTypes: ["str", "msg", "flow", "global"],
+        required: true
       }),
 
       action: new fields.SelectFieldSet({
         fieldSets: {
+          sendFromScratch: {
+            message: new fields.Typed({
+              type: "str",
+              defaultVal: "",
+              allowedTypes: ["str", "msg", "flow", "global"],
+            }),
+          },
           sendUsingTemplate: {
             templateId: new fields.Typed({
               type: "str",
@@ -46,13 +56,6 @@ class SendEmail extends Node {
               type: "json",
               defaultVal: "",
               allowedTypes: ["msg", "json", "flow", "global"],
-            }),
-          },
-          sendFromScratch: {
-            message: new fields.Typed({
-              type: "str",
-              defaultVal: "",
-              allowedTypes: ["str", "msg", "flow", "global"],
             }),
           },
         },

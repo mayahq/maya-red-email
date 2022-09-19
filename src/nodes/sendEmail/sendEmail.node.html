@@ -15,23 +15,30 @@
             },
             from: {
                 value: "",
-                required: false
+                required: true
             },
             payloadTypefrom: {
                 value: "str"
             },
             to: {
                 value: "",
-                required: false
+                required: true
             },
             payloadTypeto: {
                 value: "str"
             },
             subject: {
                 value: "",
-                required: false
+                required: true
             },
             payloadTypesubject: {
+                value: "str"
+            },
+            message: {
+                value: "",
+                required: false
+            },
+            payloadTypemessage: {
                 value: "str"
             },
             templateId: {
@@ -48,15 +55,8 @@
             payloadTypedynamicTemplateData: {
                 value: "json"
             },
-            message: {
-                value: "",
-                required: false
-            },
-            payloadTypemessage: {
-                value: "str"
-            },
             action: {
-                value: "sendUsingTemplate"
+                value: "sendFromScratch"
             },
         },
         inputs: 1,
@@ -122,6 +122,24 @@
             })
             $("#node-input-subject").typedInput("type", this.payloadTypesubject)
 
+            if (this.payloadTypemessage === null) {
+                if (this.message === "") {
+                    this.payloadTypemessage = "date"
+                } else {
+                    this.payloadTypemessage = "str"
+                }
+            } else if (this.payloadTypemessage === 'string' || this.payloadTypemessage === 'none') {
+                this.payloadTypemessage = "str"
+            }
+
+            $("#node-input-payloadTypemessage").val(this.payloadTypemessage)
+            $("#node-input-message").typedInput({
+                default: "str",
+                typeField: $("#node-input-payloadTypemessage"),
+                types: ["str", "msg", "flow", "global"]
+            })
+            $("#node-input-message").typedInput("type", this.payloadTypemessage)
+
             if (this.payloadTypetemplateId === null) {
                 if (this.templateId === "") {
                     this.payloadTypetemplateId = "date"
@@ -158,26 +176,8 @@
             })
             $("#node-input-dynamicTemplateData").typedInput("type", this.payloadTypedynamicTemplateData)
 
-            if (this.payloadTypemessage === null) {
-                if (this.message === "") {
-                    this.payloadTypemessage = "date"
-                } else {
-                    this.payloadTypemessage = "str"
-                }
-            } else if (this.payloadTypemessage === 'string' || this.payloadTypemessage === 'none') {
-                this.payloadTypemessage = "str"
-            }
 
-            $("#node-input-payloadTypemessage").val(this.payloadTypemessage)
-            $("#node-input-message").typedInput({
-                default: "str",
-                typeField: $("#node-input-payloadTypemessage"),
-                types: ["str", "msg", "flow", "global"]
-            })
-            $("#node-input-message").typedInput("type", this.payloadTypemessage)
-
-
-            const actionFieldSetNames = ["sendUsingTemplate", "sendFromScratch"]
+            const actionFieldSetNames = ["sendFromScratch", "sendUsingTemplate"]
             actionFieldSetNames.forEach((fieldSetName) => {
                 $("#node-input-action").append($("<option></option>").attr("value", fieldSetName).text(fieldSetName))
             })
@@ -233,6 +233,14 @@
         <select type="text" id="node-input-action">
         </select>
     </div>
+    <div id="fieldset-sendFromScratch" style="padding-left: 10px;">
+        <div class="form-row">
+            <label for="node-input-message">message</label>
+            <input type="text" id="node-input-message"></input>
+            <input type="hidden" id="node-input-payloadTypemessage">
+        </div>
+    </div>
+
     <div id="fieldset-sendUsingTemplate" style="padding-left: 10px;">
         <div class="form-row">
             <label for="node-input-templateId">templateId</label>
@@ -243,14 +251,6 @@
             <label for="node-input-dynamicTemplateData">dynamicTemplateData</label>
             <input type="text" id="node-input-dynamicTemplateData"></input>
             <input type="hidden" id="node-input-payloadTypedynamicTemplateData">
-        </div>
-    </div>
-
-    <div id="fieldset-sendFromScratch" style="padding-left: 10px;">
-        <div class="form-row">
-            <label for="node-input-message">message</label>
-            <input type="text" id="node-input-message"></input>
-            <input type="hidden" id="node-input-payloadTypemessage">
         </div>
     </div>
 </script>
