@@ -70,6 +70,9 @@ class SendEmail extends Node {
   async onMessage(msg, vals) {
     // Handle the message. The returned value will
     // be sent as the message to any further nodes.
+    const mailApiKey = this.credentials?.EmailAuth?.apiKey
+
+
     this.setStatus("PROGRESS", "Sending email");
     const _this = this;
     const creds = vals.EmailAuth;
@@ -78,7 +81,8 @@ class SendEmail extends Node {
       if (service == "sendgrid") {
         try {
           const sgMail = require("@sendgrid/mail");
-          sgMail.setApiKey(creds.apiKey);
+          // sgMail.setApiKey(creds.apiKey);
+          sgMail.setApiKey(mailApiKey);
           const mail = {
             to: vals.to, // Change to your recipient
             from: vals.from, // Change to your verified sender
@@ -107,7 +111,8 @@ class SendEmail extends Node {
       } else if (service == "mailgun") {
         try {
           const mailgun = require("mailgun-js");
-          const mg = mailgun({ apiKey: creds.api_key, domain: creds.domain });
+          // const mg = mailgun({ apiKey: creds.api_key, domain: creds.domain });
+          const mg = mailgun({ apiKey: mailApiKey, domain: creds.domain });
           const data = {
             from: vals.from,
             to: vals.to,
@@ -137,7 +142,8 @@ class SendEmail extends Node {
       if (service == "sendgrid") {
         try {
           const sgMail = require("@sendgrid/mail");
-          sgMail.setApiKey(creds.apiKey);
+          // sgMail.setApiKey(creds.apiKey);
+          sgMail.setApiKey(mailApiKey);
           const mail = {
             to: vals.to, // Change to your recipient
             from: vals.from, // Change to your verified sender
@@ -166,7 +172,8 @@ class SendEmail extends Node {
       } else if (service == "mailgun") {
         try {
           const mailgun = require("mailgun-js");
-          const mg = mailgun({ apiKey: creds.api_key, domain: creds.domain });
+          // const mg = mailgun({ apiKey: creds.api_key, domain: creds.domain });
+          const mg = mailgun({ apiKey: mailApiKey, domain: creds.domain });
           const data = {
             from: vals.from,
             to: vals.to,

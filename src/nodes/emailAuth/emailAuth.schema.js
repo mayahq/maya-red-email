@@ -14,22 +14,10 @@ class EmailAuth extends Node {
     category: "Maya Red Email",
     isConfig: true,
     fields: {
-      // Whatever custom fields the node needs.
       service: new fields.SelectFieldSet({
         fieldSets: {
-          sendgrid: {
-            apiKey: new fields.Typed({
-              type: "str",
-              defaultVal: "",
-              allowedTypes: ["msg", "str", "flow", "global"],
-            }),
-          },
+          sendgrid: {},
           mailgun: {
-            api_key: new fields.Typed({
-              type: "str",
-              defaultVal: "",
-              allowedTypes: ["msg", "str", "flow", "global"],
-            }),
             domain: new fields.Typed({
               type: "str",
               defaultVal: "",
@@ -39,6 +27,16 @@ class EmailAuth extends Node {
         },
       }),
     },
+    redOpts: {
+      credentials: {
+        apiKey: new fields.Credential({
+          displayName: 'API Key',
+          trim: true,
+          password: true,
+          forConfig: true
+        })
+      }
+    }
   });
 
   onInit() {

@@ -9,20 +9,6 @@
             isProfileConfigNode: {
                 value: false
             },
-            apiKey: {
-                value: "",
-                required: false
-            },
-            payloadTypeapiKey: {
-                value: "str"
-            },
-            api_key: {
-                value: "",
-                required: false
-            },
-            payloadTypeapi_key: {
-                value: "str"
-            },
             domain: {
                 value: "",
                 required: false
@@ -34,6 +20,11 @@
                 value: "sendgrid"
             },
         },
+        credentials: {
+            apiKey: {
+                type: String
+            },
+        },
         inputs: 1,
         outputs: 1,
         icon: "fa-file-code-o.png",
@@ -43,42 +34,6 @@
         paletteLabel: "email-auth",
         exportable: true,
         oneditprepare: function() {
-            if (this.payloadTypeapiKey === null) {
-                if (this.apiKey === "") {
-                    this.payloadTypeapiKey = "date"
-                } else {
-                    this.payloadTypeapiKey = "str"
-                }
-            } else if (this.payloadTypeapiKey === 'string' || this.payloadTypeapiKey === 'none') {
-                this.payloadTypeapiKey = "str"
-            }
-
-            $("#node-config-input-payloadTypeapiKey").val(this.payloadTypeapiKey)
-            $("#node-config-input-apiKey").typedInput({
-                default: "str",
-                typeField: $("#node-config-input-payloadTypeapiKey"),
-                types: ["msg", "str", "flow", "global"]
-            })
-            $("#node-config-input-apiKey").typedInput("type", this.payloadTypeapiKey)
-
-            if (this.payloadTypeapi_key === null) {
-                if (this.api_key === "") {
-                    this.payloadTypeapi_key = "date"
-                } else {
-                    this.payloadTypeapi_key = "str"
-                }
-            } else if (this.payloadTypeapi_key === 'string' || this.payloadTypeapi_key === 'none') {
-                this.payloadTypeapi_key = "str"
-            }
-
-            $("#node-config-input-payloadTypeapi_key").val(this.payloadTypeapi_key)
-            $("#node-config-input-api_key").typedInput({
-                default: "str",
-                typeField: $("#node-config-input-payloadTypeapi_key"),
-                types: ["msg", "str", "flow", "global"]
-            })
-            $("#node-config-input-api_key").typedInput("type", this.payloadTypeapi_key)
-
             if (this.payloadTypedomain === null) {
                 if (this.domain === "") {
                     this.payloadTypedomain = "date"
@@ -116,7 +71,12 @@
             })
 
         },
-        oneditsave: function() {},
+        oneditsave: function() {
+            $(node - config - input - apiKey).val(
+                $(node - config - input - apiKey).val().trim()
+            )
+
+        },
         oneditcancel: function() {},
         oneditdelete: function() {},
         oneditresize: function() {},
@@ -136,24 +96,19 @@
         </select>
     </div>
     <div id="fieldset-sendgrid" style="padding-left: 10px;">
-        <div class="form-row">
-            <label for="node-config-input-apiKey">apiKey</label>
-            <input type="text" id="node-config-input-apiKey"></input>
-            <input type="hidden" id="node-config-input-payloadTypeapiKey">
-        </div>
+
     </div>
 
     <div id="fieldset-mailgun" style="padding-left: 10px;">
-        <div class="form-row">
-            <label for="node-config-input-api_key">api_key</label>
-            <input type="text" id="node-config-input-api_key"></input>
-            <input type="hidden" id="node-config-input-payloadTypeapi_key">
-        </div>
         <div class="form-row">
             <label for="node-config-input-domain">domain</label>
             <input type="text" id="node-config-input-domain"></input>
             <input type="hidden" id="node-config-input-payloadTypedomain">
         </div>
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-apiKey">API Key</label>
+        <input type="password" id="node-config-input-apiKey"></input>
     </div>
 </script>
 
