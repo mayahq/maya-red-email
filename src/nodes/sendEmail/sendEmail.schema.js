@@ -44,7 +44,7 @@ class SendEmail extends Node {
             }),
             dynamicTemplateData: new fields.Typed({
               type: "json",
-              defaultVal: "",
+              defaultVal: "{}",
               allowedTypes: ["msg", "json", "flow", "global"],
             }),
           },
@@ -71,6 +71,10 @@ class SendEmail extends Node {
     const _this = this;
     const creds = vals.EmailAuth;
     const { service } = creds;
+    const showdown  = require('showdown');
+    const converter = new showdown.Converter();
+    const formattedMessage = converter.makeHtml(vals.action.childValues.message);
+    // console.log(formattedMessage);
     if (vals.action.selected === "sendFromScratch") {
       if (service == "sendgrid") {
         try {
@@ -80,8 +84,8 @@ class SendEmail extends Node {
             to: vals.to, // Change to your recipient
             from: vals.from, // Change to your verified sender
             subject: vals.subject,
-            text: vals.action.childValues.message,
-            html: vals.action.childValues.message,
+            text: formattedMessage,
+            html: formattedMessage,
           };
           sgMail
             .send(mail)
@@ -109,8 +113,8 @@ class SendEmail extends Node {
             from: vals.from,
             to: vals.to,
             subject: vals.subject,
-            text: vals.action.childValues.message,
-            html: vals.action.childValues.message,
+            text: formattedMessage,
+            html: formattedMessage,
           };
           mg.messages().send(data, function (error, body) {
             if (error) {

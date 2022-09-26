@@ -54,6 +54,10 @@ class BulkSendEmail extends Node {
     const _this = this;
     const creds = vals.EmailAuth;
     const { service } = creds;
+
+    const showdown  = require('showdown');
+    const converter = new showdown.Converter();
+    const formattedMessage = converter.makeHtml(vals.message);
     if (service == "sendgrid") {
       try {
         // convert vals.to from comma seperated email id and conver to array
@@ -64,8 +68,8 @@ class BulkSendEmail extends Node {
           to: toArray, // replace these with your email addresses
           from: vals.from,
           subject: vals.subject,
-          text: vals.message,
-          html: vals.message,
+          text: formattedMessage,
+          html: formattedMessage,
         };
         sgMail
           .sendMultiple(msgSend)
