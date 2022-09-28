@@ -72,7 +72,9 @@ class SendEmail extends Node {
     // be sent as the message to any further nodes.
     const mailApiKey = this.credentials?.EmailAuth?.apiKey
 
-
+    const showdown  = require('showdown');
+    const converter = new showdown.Converter();
+    const formattedMessage = converter.makeHtml(vals.action.childValues.message); // convert markdown to html
     this.setStatus("PROGRESS", "Sending email");
     const _this = this;
     const creds = vals.EmailAuth;
@@ -87,8 +89,8 @@ class SendEmail extends Node {
             to: vals.to, // Change to your recipient
             from: vals.from, // Change to your verified sender
             subject: vals.subject,
-            text: vals.action.childValues.message,
-            html: vals.action.childValues.message,
+            text: formattedMessage,
+            html: formattedMessage,
           };
           sgMail
             .send(mail)
@@ -117,8 +119,8 @@ class SendEmail extends Node {
             from: vals.from,
             to: vals.to,
             subject: vals.subject,
-            text: vals.action.childValues.message,
-            html: vals.action.childValues.message,
+            text: formattedMessage,
+            html: formattedMessage,
           };
           mg.messages().send(data, function (error, body) {
             if (error) {
