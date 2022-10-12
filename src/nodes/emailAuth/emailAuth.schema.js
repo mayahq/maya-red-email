@@ -33,7 +33,8 @@ class EmailAuth extends Node {
           displayName: 'API Key',
           trim: true,
           password: true,
-          forConfig: true
+          forConfig: true,
+          required: true
         })
       }
     }
