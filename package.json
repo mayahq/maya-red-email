@@ -39,7 +39,7 @@
     }
   },
   "dependencies": {
-    "@mayahq/module-sdk": "^2.3.0",
+    "@mayahq/module-sdk": "^2.3.2",
     "@sendgrid/mail": "^7.7.0",
     "mailgun-js": "^0.22.0",
     "showdown": "^2.1.0"
