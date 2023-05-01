@@ -18,7 +18,7 @@ class SendEmail extends Node {
     icon: "font-awesome/fa-envelope",
     fields: {
       // Whatever custom fields the node needs.
-      EmailAuth: new fields.ConfigNode({ type: EmailAuth }),
+      EmailAuth: new fields.ConfigNode({ type: EmailAuth, useAlias: true }),
       from: new fields.Typed({
         type: "str",
         defaultVal: "",
